@@ -929,13 +929,6 @@ if 'env_q' not in st.session_state or \
     st.session_state.current_level = selected_level
     st.session_state.current_seed = seed_input
 
-# --- LEGEND DISPLAY FUNCTION --
-    with st.sidebar.expander("🗺️ Open Color Legend", expanded=False):
-    if 'display_color_legend_python' in globals():
-        display_color_legend_python()
-    else:
-        st.warning("Legend function not found.")
-
 # --- 4. MAIN DASHBOARD ---
 col1, col2 = st.columns(2)
 
