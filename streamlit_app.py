@@ -843,7 +843,7 @@ reset_btn = col_btn3.button("🔄 Reset")
 # B. Settings
 st.sidebar.divider()
 selected_level = st.sidebar.selectbox("Select Map Level", ["easy", "medium", "hard"])
-seed_input = st.sidebar.number_input("Map Seed (ID)", min_value=0, value=42, step=1)
+seed_input = st.sidebar.number_input("Map Seed (ID)", min_value=0, value=2925, step=1)
 max_steps_input = st.sidebar.slider("Max Steps", 50, 500, 200)
 speed = st.sidebar.slider("Speed (Delay)", 0.0, 0.5, 0.01)
 
