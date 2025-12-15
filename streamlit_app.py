@@ -822,7 +822,40 @@ def render_grid(env, path, title_color="black"):
     ax.tick_params(axis='both', which='both', length=0) 
 
     return fig
+    
+# --- LEGEND DISPLAY FUNCTION ---
+def display_color_legend_python():
+    # Define data matching the render_grid palette
+    legend_data = [
+        {"Object": "Wall",            "Color": "#000000"},
+        {"Object": "Bush",            "Color": "#2E7D32"},
+        {"Object": "Guard House",     "Color": "#37474F"},
+        {"Object": "Ticket Machine",  "Color": "#1976D2"},
+        {"Object": "OKU Parking",     "Color": "#88C3E3"},
+        {"Object": "Lift/Escalator",  "Color": "#7B1FA2"},
+        {"Object": "Construction",    "Color": "#FFA04D"},
+        {"Object": "Ramp",            "Color": "#D7CCC8"},
+        {"Object": "Water Leak",      "Color": "#795548"},
+        {"Object": "Cone",            "Color": "#FF6F00"},
+        {"Object": "Parking Slots",   "Color": "#BDBDBD"},
+        {"Object": "Moving Human",    "Color": "#F48FB1"},
+        {"Object": "Walkway",         "Color": "#FFCDD2"},
+        {"Object": "Trolley Road",    "Color": "#FFF9C4"},
+    ]
 
+    # Create DataFrame
+    df = pd.DataFrame(legend_data)
+
+    # Style function to color the background of the 'Color' column
+    def color_background(val):
+        return f'background-color: {val}; color: {val};'
+
+    # Apply style
+    styled_df = df.style.map(color_background, subset=['Color'])
+
+    # Display in Sidebar
+    st.sidebar.table(styled_df)
+    
 # ==========================================
 # 4. STREAMLIT APP LAYOUT
 # ==========================================
@@ -896,41 +929,8 @@ if 'env_q' not in st.session_state or \
     st.session_state.current_level = selected_level
     st.session_state.current_seed = seed_input
 
-# --- 3. DISPLAY LEGEND (IN EXPANDER) ---
-# --- LEGEND DISPLAY FUNCTION ---
-def display_color_legend_python():
-    # Define data matching the render_grid palette
-    legend_data = [
-        {"Object": "Wall",            "Color": "#000000"},
-        {"Object": "Bush",            "Color": "#2E7D32"},
-        {"Object": "Guard House",     "Color": "#37474F"},
-        {"Object": "Ticket Machine",  "Color": "#1976D2"},
-        {"Object": "OKU Parking",     "Color": "#88C3E3"},
-        {"Object": "Lift/Escalator",  "Color": "#7B1FA2"},
-        {"Object": "Construction",    "Color": "#FFA04D"},
-        {"Object": "Ramp",            "Color": "#D7CCC8"},
-        {"Object": "Water Leak",      "Color": "#795548"},
-        {"Object": "Cone",            "Color": "#FF6F00"},
-        {"Object": "Parking Slots",   "Color": "#BDBDBD"},
-        {"Object": "Moving Human",    "Color": "#F48FB1"},
-        {"Object": "Walkway",         "Color": "#FFCDD2"},
-        {"Object": "Trolley Road",    "Color": "#FFF9C4"},
-    ]
-
-    # Create DataFrame
-    df = pd.DataFrame(legend_data)
-
-    # Style function to color the background of the 'Color' column
-    def color_background(val):
-        return f'background-color: {val}; color: {val};'
-
-    # Apply style
-    styled_df = df.style.map(color_background, subset=['Color'])
-
-    # Display in Sidebar
-    st.sidebar.table(styled_df)
-    
-with st.sidebar.expander("🗺️ Open Color Legend", expanded=False):
+# --- LEGEND DISPLAY FUNCTION --
+    with st.sidebar.expander("🗺️ Open Color Legend", expanded=False):
     if 'display_color_legend_python' in globals():
         display_color_legend_python()
     else:
