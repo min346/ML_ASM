@@ -1045,14 +1045,14 @@ col1, col2 = st.columns(2)
 table_q = q_tables.get(selected_level, {})
 table_dq = dq_tables.get(selected_level, {})
 
-# --- HELPER: Display Metrics Table (Pandas) ---
+# --- Display Metrics Table---
 def render_metrics_table(placeholder, path, info, steps):
     status = "🏎️ Driving..."
     if info.get("is_parked"): status = "✅ Parked"
     elif info.get("is_collision"): status = "💥 Crashed"
     elif info.get("is_boundary"): status = "🚧 Out of Bounds"
     elif steps >= max_steps_input: status = "⌛ Timeout"
-    
+
     # Create Dataframe
     df = pd.DataFrame([
         {"Metric": "Status", "Value": status},
@@ -1061,6 +1061,16 @@ def render_metrics_table(placeholder, path, info, steps):
     ])
     # Display clean table
     placeholder.dataframe(df, hide_index=True, use_container_width=True)
+
+    with placeholder.container():
+        # 1. Show Coordinates Line
+        if path:
+            start_coord = path[0][:2]
+            end_coord = path[-1][:2]
+            st.markdown(f"**📍 Start:** `{start_coord}` &nbsp;&nbsp;→&nbsp;&nbsp; **🏁 End:** `{end_coord}`")
+        
+        # 2. Show Table (using st.dataframe, NOT placeholder.dataframe)
+        st.dataframe(df, hide_index=True, use_container_width=True)
 
 # --- LAYOUT COLUMNS ---
 
