@@ -1121,9 +1121,12 @@ if st.session_state.run_active:
         plot_dq.pyplot(fig2)
         plt.close(fig2)
 
+        steps_q = len(st.session_state.path_q) - 1
+        steps_dq = len(st.session_state.path_dq) - 1
+
         # RENDER METRICS
-        render_metrics_table(metrics_q, st.session_state.path_q, st.session_state.info_q, st.session_state.step_count)
-        render_metrics_table(metrics_dq, st.session_state.path_dq, st.session_state.info_dq, st.session_state.step_count)
+        render_metrics_table(metrics_q, st.session_state.path_q, st.session_state.info_q, steps_q)
+        render_metrics_table(metrics_dq, st.session_state.path_dq, st.session_state.info_dq, steps_dq)
 
         # CHECK DONE
         if st.session_state.done_q and st.session_state.done_dq:
