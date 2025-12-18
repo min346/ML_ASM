@@ -968,10 +968,14 @@ start_btn = col_btn1.button("▶ Start", type="primary") # Primary makes it red/
 pause_btn = col_btn2.button("⏸ Pause")
 reset_btn = col_btn3.button("🔄 Reset")
 
+seed_defaults = {
+    "easy": 8188,"medium": 7380,"hard": 2877
+}
 # B. Settings
 st.sidebar.divider()
 selected_level = st.sidebar.selectbox("Select Map Level", ["easy", "medium", "hard"])
-seed_input = st.sidebar.number_input("Map Seed (ID)", min_value=0, value=2925, step=1)
+current_default_seed = seed_defaults[selected_level]
+seed_input = st.sidebar.number_input("Map Seed (ID)", min_value=0, value=current_default_seed, step=1)
 max_steps_input = st.sidebar.slider("Max Steps", 50, 500, 200)
 speed = st.sidebar.slider("Speed (Delay)", 0.0, 0.5, 0.0)
 
